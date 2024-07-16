@@ -27,7 +27,7 @@ class Address(BaseValueObject):
              raise InvalidTextLengthError(value="city")
         if len(self.street) > 255 or len(self.street) < 3:
             raise InvalidTextLengthError(value="street")
-        if len(self.postcode) != 6:
+        if len(self.postcode) > 10 or len(self.postcode) < 4:
             raise InvalidTextLengthError(value="postcode")
 
     def __post_init__(self, ) -> None:
