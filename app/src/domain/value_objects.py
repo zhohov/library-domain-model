@@ -1,3 +1,4 @@
+from typing import Optional
 from dataclasses import dataclass
 
 from src.exceptions import EmptyValueError, InvalidTextLengthError
@@ -33,3 +34,26 @@ class Address(BaseValueObject):
     def __post_init__(self, ) -> None:
         self.validate_empty_fields()
         self.validate_length()
+
+
+@dataclass(frozen=True)
+class FullName(BaseValueObject):
+    first_name: str
+    last_name: str
+    middle_name: Optional[str]
+
+    def validate_empty_fields(self) -> None:
+        if not self.first_name:
+            raise EmptyValueError(value="first_name")
+        if not self.last_name:
+            raise EmptyValueError(value="last_name")
+
+    def validate_length(self) -> None:
+        if len(self.first_name) > 16 or len(self.first_name) < 3:
+             raise InvalidTextLengthError(value="city")
+        if len(self.last_name) > 16 or len(self.last_name) < 3:
+            raise InvalidTextLengthError(value="street")
+
+    def __post_init__(self) -> None:
+        self.validate_empty_fields()
+
