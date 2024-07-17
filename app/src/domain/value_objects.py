@@ -40,7 +40,7 @@ class Address(BaseValueObject):
 class FullName(BaseValueObject):
     first_name: str
     last_name: str
-    middle_name: Optional[str]
+    middle_name: Optional[str] = ""
 
     def validate_empty_fields(self) -> None:
         if not self.first_name:
